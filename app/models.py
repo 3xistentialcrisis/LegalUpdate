@@ -16,9 +16,8 @@ class Files(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     client_name = db.Column(db.String(255), unique=True, nullable=False)
     file_name = db.Column(db.String(255), unique=True, nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    type = db.Column(db.String(255), unique=True, nullable=False)
-    date_created = db.Column(db.String(255), unique=True, nullable=False)
+    file_type = db.Column(db.String(255), unique=True, nullable=False)
+    date_created = db.Column(db.DateTime,default=datetime.utcnow)
 
     def save(self):
         db.session.add(self)

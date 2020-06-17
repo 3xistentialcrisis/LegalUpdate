@@ -11,19 +11,7 @@ class CreateStatus(FlaskForm):
     submit = SubmitField('Post')
 
 class CreateFile(FlaskForm):
-    username = StringField('Enter Your Username', validators=[Required()])
-    email = StringField('Email Address', validators=[Required(), Email()])
-    bio = TextAreaField('Write a few biographical facts about yourself.', validators=[Required()])
-    profile_picture = FileField('profile picture', validators=[FileAllowed(['jpg', 'png'])])
+    client_name = StringField('Enter the Client Name', validators=[Required()])
+    file_name = StringField('Enter the File Name', validators=[Required()])
+    file_type = StringField('Enter the File Type', validators=[Required()])
     submit = SubmitField('Save')
-
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            if User.query.filter_by(email=email.data).first():
-                raise ValidationError("This Email has already been registered!")
-
-    def validate_username(self, username):
-        if username.data != current_user.username:
-            if User.query.filter_by(username=username.data).first():
-                raise ValidationError("This username is not available")
-
