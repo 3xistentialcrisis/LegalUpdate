@@ -1,0 +1,23 @@
+{% extends 'base.html'%} {% block content %}
+<div class="container-fluid cool">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 welcome">
+                <div class="intro">
+                    <h1 class="welcome animated slideInRight" style="animation-delay:0s">WELCOME</h1>
+                    <h2 class="hey animated slideInRight" style="animation-delay:1s">Legal_Update</h2>
+                    <p class="para animated slideInLeft" style="animation-delay:2s">"To provide universal access to public legal information by monitoring and reporting on the development of jurisprudence for the promotion of the rule of law."</p>
+                    
+                    {% if current_client.is_authenticated%}
+                    <a id="start" class="btn btn-danger text-center" href="{{url_for('main.home')}}"><span class="view">View Cases</span></a> {% else %}
+                    <a id="start" class="btn btn-danger text-center" href="{{url_for('auth.login')}}"><span class="view">Sign In</span> </a> {% endif %}
+                    <input type="submit" class="btn  btn-rounded waves-effect btn-lg" value="Lawyer">
+                    <input type="submit" class="btn  btn-rounded waves-effect btn-lg" value="Client">
+                    
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

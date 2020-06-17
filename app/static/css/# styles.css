@@ -1,0 +1,26 @@
+.cool {
+    background-image: linear-gradient("https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRMDpBPGq3zd_szMIjfdGo-FxZ45iJIoY8vkhS-oRoy8Fav6rse&usqp=CAU");
+    padding: 0;
+    margin: 0;
+    background-size: cover;
+    color: white;
+    position: fixed;
+}
+
+.intro {
+    padding-top: 200px;
+    text-align: center;
+    padding-bottom: 370px;
+}
+
+.welcome {
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 80px;
+}
+
+.home {
+    font-size: 50px;
+    font-family: sans-serif;
+    padding-bottom: 20px;
+}
