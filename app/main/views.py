@@ -22,12 +22,13 @@ def new_file():
     clients = Client.query.all()
     form = CreateFile()
     if form.validate_on_submit():
-        client_name= form.title.data
-        file_name = form.content.data
-        file_type = form.content.data
-        lawyer_email = form.content.data
+        client_name= form.client_name.data
+        file_name = form.file_name.data
+        file_type = form.file_type.data
+        lawyer_email = form.lawyer_email.data
 
-        new_file = CreateFile(client_name=client_name, file_name =file_name, file_type = file_type, lawyer_email=lawyer_email)
+        new_file = CreateFile(client_name=client_name, file_name =file_name,
+                              file_type = file_type, lawyer_email=lawyer_email)
         new_file.save()
 
         for client in Clients:
@@ -46,7 +47,7 @@ def new_status():
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
-        lawyer_email = form.content.data
+        lawyer_email = form.lawyer_email.data
         new_status = Status(title=title,content=content, lawyer_email=lawyer_email)
         new_status.save()
 
