@@ -47,43 +47,10 @@ In the same terminal type:
     - Postgresql
 
 
-## About us.
-  # Organizational Profile
-
-  ~Legal Name: 3xistential Crisis Law Firm
-
-  ~Brand Name: 3xistential Crisis Law Firm
-
-  ~Organization type: A semi-autonomous state corporation
-
-  ~Parent Institution: The Judiciary
-
-  ~Parent Act: The National Council for Law Reporting Act
-
- 
-## Organizational Structure:
-
- - Leadership & Governance – A Council of non-executive members chaired by The Chief Justice/President of the Supreme Court.
-
- - Management - A Secretariat managed by a Chief Executive/Editor.
-
- - Status: The official legal_update app of the Kenya Law Reports and the Laws of Kenya.
-
-
-## Mission.
-To provide universal access to public legal information by monitoring and reporting on the development of jurisprudence for the promotion of the rule of law.
-
-## Vision.
-Working for the interest of the general community.
-
-## Official slogan.
-Ensuring the community is at peace.
-
-
 ## Support and contact details:
         ~Incase of any issues or clarification email us at:3xistentialcrisislawfirm5@gmail.com
         ~Call us : 0110443278
 
 ## License
   Powered by eRegulations ©, a content management system developed byUNCTAD's Business Facilitation Programand licensed underCreative Commons License.
-                  # 3xistentialcrisislawfirmcopyright(c)2020
+                  # legal_update law firmcopyright(c)2020
