@@ -2,7 +2,7 @@ from flask import render_template,flash, request, redirect, url_for
 from flask_login import login_user, logout_user,login_required
 from app import db
 from app.auth import auth
-from app.models import Lawyers
+from app.models import Lawyers,Client
 from .forms import RegistrationForm,LoginForm
 from ..email import mail_message
 
@@ -46,3 +46,9 @@ def logout():
 
     title = "Legalupdate logout"
     return render_template('auth/lawyer_login.html', title=title)
+
+#View Client Registration
+
+#View Client Login Form
+
+#View Client Logout Form
