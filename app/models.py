@@ -35,3 +35,33 @@ class Files(db.Model):
 
     def __repr__(self):
         return f'Files {self.client_name}'
+
+#Save Client's Status
+class Status(db.Model):
+__tablename = 'status'
+    id = db.Column(db.Integer, primary_key=True)
+    client_name = db.Column(db.String(255), unique=True, nullable=False)
+    file_name = db.Column(db.String(255), unique=True, nullable=False)
+    title = db.Column(db.String(255), unique=True, nullable=False)
+    content = db.Column(db.String(255), unique=True, nullable=False)
+    date_created = db.Column(db.String(255), unique=True, nullable=False)
+
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+
+
+    def get_status(id):
+        status = Status.query.all(id=id)
+
+        return status
+
+
+    def __repr__(self):
+        return f'Status {self.file_name}'
