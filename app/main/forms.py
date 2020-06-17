@@ -12,9 +12,9 @@ class CreateFile(FlaskForm):
     lawyer_email = StringField('Enter the File Type', validators=[Required(), Email()])
     submit = SubmitField('Save')
 
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            if Lawyers.query.filter_by(lawyer_email=email.data).first():
+    def validate_email(self, lawyer_email):
+        if lawyer_email.data != current_user.email:
+            if Lawyers.query.filter_by(lawyer_email=lawyer_email.data).first():
                 raise ValidationError("You do not have permission to create a Client File!")
 
 #Lawyers Create File Status
@@ -24,7 +24,7 @@ class CreateStatus(FlaskForm):
     lawyer_email = StringField('Enter the File Type', validators=[Required(), Email()])
     submit = SubmitField('Post')
 
-    def validate_email(self, email):
-        if email.data != current_user.email:
-            if Lawyers.query.filter_by(lawyer_email=email.data).first():
+    def validate_email(self, lawyer_email):
+        if lawyer_email.data != current_user.email:
+            if Lawyers.query.filter_by(lawyer_email=lawyer_email.data).first():
                 raise ValidationError("You do not have permission to create a File Status!")

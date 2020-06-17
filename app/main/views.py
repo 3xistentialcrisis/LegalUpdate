@@ -7,7 +7,6 @@ from flask_login import login_required,current_user
 from ..email import mail_message
 import secrets
 import os
-from PIL import Image
 
 #Index Page
 @main.route('/')
@@ -16,22 +15,19 @@ def index():
     return render_template('index.html')
 
 
-#Lawyer's Dashboard
-
-#Client's Dashboard
-
 #Create New Client File
 @main.route('/new_file', methods=['POST','GET'])
 @login_required
 def new_file():
-    clients = Clients.query.all()
+    clients = Client.query.all()
     form = CreateFile()
     if form.validate_on_submit():
         client_name= form.title.data
         file_name = form.content.data
         file_type = form.content.data
+        lawyer_email = form.content.data
 
-        new_file = CreateFile(client_name=client_name, file_name =file_name, file_type = file_type)
+        new_file = CreateFile(client_name=client_name, file_name =file_name, file_type = file_type, lawyer_email=lawyer_email)
         new_file.save()
 
         for client in Clients:
@@ -50,10 +46,13 @@ def new_status():
     if form.validate_on_submit():
         title = form.title.data
         content = form.content.data
-        new_status = Status(title=title,content=content)
+        lawyer_email = form.content.data
+        new_status = Status(title=title,content=content, lawyer_email=lawyer_email)
         new_status.save()
+
         for client in Clients:
             mail_message("New File Status Update", "email/new_status", client.email, new_status=new_status)
         return redirect(url_for('main.index'))
         flash('You Posted a new Status', danger)
+
     return render_template('newstatus.html', form = form)
