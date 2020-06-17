@@ -55,5 +55,5 @@ def new_status():
         for client in Clients:
             mail_message("New File Status Update", "email/new_status", client.email, new_status=new_status)
         return redirect(url_for('main.index'))
-        flash('You Posted a new Status')
+        flash('You Posted a new Status', danger)
     return render_template('newstatus.html', form = form)

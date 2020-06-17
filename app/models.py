@@ -1,39 +1,24 @@
 from . import db, login_manager
-from flask_login import current_user, UserMixin
+from flask_login import ClientMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+from sqlalchemy import text
+import jwt
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(user_id)
+@login_manager.lawyer_loader
+def load_lawyer(lawyer_name):
+    return Lawyers.query.get(lawyer_name)
 
-#Roles
-class Role(db.Model):
-    __tablename__ = 'roles'
 
-    id = db.Column(db.Integer,primary_key = True)
-    name = db.Column(db.String(255))
-    users = db.relationship('User',backref = 'role',lazy="dynamic")
+#Save Lawyers
+class Lawyers(db.Model):
+    __tablename__= 'lawyers'
 
-    def save(self):
-        db.session.add(self)
-        db.session.commit()
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-
-    def __repr__(self):
-        return f'User {self.name}'
-
-#Users
-class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(255), unique=True, nullable=False)
-    email = db.Column(db.String(255), unique=True, nullable=False)
-    bio = db.Column(db.String(255),default ='My default Bio')
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
+    id = db.Column(db.Integer,primary_key=True)
+    lawyer_name = db.Column(db.String(255), unique=True, nullable=False)
+    lawyer_email = db.Column(db.String(255),unique=True,index=True)
     hashed_password = db.Column(db.String(255), nullable=False)
+    department = db.Column(db.String(255), unique=True, nullable=False)
 
     @property
     def set_password(self):
@@ -55,30 +40,13 @@ class User(UserMixin, db.Model):
         db.session.commit()
 
     def __repr__(self):
-        return "User: %s" % str(self.username)
-
-
-#Save Lawyers
-class Lawyers(db.Model):
-    __tablename__='lawyers'
-
-    id = db.Column(db.Integer,primary_key=True)
-    lawyer_name = db.Column(db.String(255), unique=True, nullable=False)
-    lawyer_email = db.Column(db.String(255),unique=True,index=True)
-    department = db.Column(db.String(255), unique=True, nullable=False)
-
-    def save_subscriber(self):
-        db.session.add(self)
-        db.session.commit()
-
-    def __repr__(self):
         return f'Lawyers {self.lawyer_name}'
 
-#Save Client's Files
+#Save Files
 class Files(db.Model):
     __tablename__ = 'files'
     id = db.Column(db.Integer, primary_key=True)
-    client_name = db.Column(db.String(255), unique=True, nullable=False)
+    clientname = db.relationship('Client Name', backref='clients', lazy='dynamic')
     file_name = db.Column(db.String(255), unique=True, nullable=False)
     file_type = db.Column(db.String(255), unique=True, nullable=False)
     date_created = db.Column(db.DateTime,default=datetime.utcnow)
@@ -103,7 +71,7 @@ class Files(db.Model):
 class Status(db.Model):
     __tablename = 'status'
     id = db.Column(db.Integer, primary_key=True)
-    client_name = db.relationship('Client Name', backref='Client', lazy='dynamic')
+    clientname = db.relationship('Client Name', backref='clients', lazy='dynamic')
     file_name = db.relationship('Client File', backref='Files', lazy='dynamic')
     title = db.Column(db.String(255), unique=True, nullable=False)
     content = db.Column(db.String(255), unique=True, nullable=False)
