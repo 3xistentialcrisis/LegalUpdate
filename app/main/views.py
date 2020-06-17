@@ -50,6 +50,7 @@ def new_status():
         new_status = Status(title=title,content=content, lawyer_email=lawyer_email)
         new_status.save()
 
+
         for client in Clients:
             mail_message("A New Status Update has been made on your File", "email/new_status", client.email, new_status=new_status)
         return redirect(url_for('main.index'))
@@ -65,5 +66,6 @@ def delete_status(status_id):
     if Lawyers.user != current_user:
         abort(403)
     status.delete()
+    db.session.commit()
     flash("You have Successfully deleted the status!")
     return redirect(url_for('lawyersdashboard.html'))
