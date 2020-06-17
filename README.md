@@ -1,7 +1,7 @@
 # Legal_Update App
 
 ## Developers.
- legal_update law firm
+ 3xistentialcrisis law firm
 
 ## Description.
 The legal_update was created whereby clients can view their files cases which have been posted by the lawyers.For this to be done the client needs to be have an account and also the lawyer.The lawyer will uploading the files and the client will be getting the update immediately.Clients have the chance to make comments about the files which are being worked everytime.The cases are in only three categories:
