@@ -2,11 +2,11 @@ from flask import render_template,flash, request, redirect, url_for
 from flask_login import login_user, logout_user,login_required
 from app import db
 from app.auth import auth
-from app.models import Lawyers, Client
+from app.models import Lawyers
 from .forms import RegistrationForm,LoginForm
 from ..email import mail_message
 
-#View Registration Form
+#View Lawyer Registration Form
 @auth.route('/register', methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
@@ -21,7 +21,7 @@ def register():
     return render_template('auth/lawyer_register.html', registration_form=form)
 
 
-#View Login Form
+#View Lawyer Login Form
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
@@ -37,7 +37,7 @@ def login():
     return render_template('auth/lawyer_login.html', login_form=login_form, title=title)
 
 
-#View Logout
+#View Lawyer Logout
 @auth.route('/logout')
 @login_required
 def logout():
