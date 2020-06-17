@@ -5,8 +5,9 @@ from ..models import Lawyers
 
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Your Email Address', validators=[Required(), Email()])
-    username = StringField('Enter your username', validators=[Required()])
+    lawyer_email = StringField('Your Email Address', validators=[Required(), Email()])
+    lawyer_name = StringField('Enter your Name', validators=[Required()])
+    department = StringField('Enter your Department', validators=[Required()])
     password = PasswordField('Password', validators=[Required(),
                                                      EqualTo('password_confirm', message='Passwords must match')])
     password_confirm = PasswordField('Confirm Passwords', validators=[Required()])
