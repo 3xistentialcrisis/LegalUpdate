@@ -45,6 +45,7 @@ class Lawyers(db.Model):
 #Save Files
 class Files(db.Model):
     __tablename__ = 'files'
+
     id = db.Column(db.Integer, primary_key=True)
     clientname = db.relationship('Client Name', backref='clients', lazy='dynamic')
     file_name = db.Column(db.String(255), unique=True, nullable=False)

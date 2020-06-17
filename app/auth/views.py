@@ -1,18 +1,20 @@
-from . import auth
-from flask import render_template, redirect, url_for, request
-from ..models import User
-from .forms import LoginForm, RegistrationForm
-from .. import db
-from flask_login import login_user, logout_user, login_required
+from flask import render_template,flash, request, redirect, url_for
+from flask_login import login_user, logout_user,login_required
+from app import db
+from app.auth import auth
+from app.models import Lawyers, Client
+from .forms import RegistrationForm,LoginForm
+from ..email import mail_message
 
 #View Registration Form
 @auth.route('/register', methods=["GET", "POST"])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        user = User(email=form.email.data, username=form.username.data, password=form.password.data)
-        db.session.add(user)
+        lawyer = Lawyers(email=form.lawyer_email.data, username=form.lawyer_name.data, department=form.department.data, password=form.password.data)
+        db.session.add(lawyer)
         db.session.commit()
+        mail_message("Welcome to Legal Update", "email/welcome", lawyer.lawyer_emailemail, lawyer=lawyer)
 
         return redirect(url_for('auth.lawyer_login'))
         title = "New Account"

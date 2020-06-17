@@ -3,7 +3,8 @@ from flask_wtf.file import FileField,FileAllowed
 from wtforms import StringField,TextAreaField, SubmitField,ValidationError
 from wtforms.validators import Required,Email
 from flask_login import current_user
-from ..models import User
+from ..models import Client, Lawyers
+
 
 class CreateFile(FlaskForm):
     client_name = StringField('Enter the Client Name', validators=[Required()])
