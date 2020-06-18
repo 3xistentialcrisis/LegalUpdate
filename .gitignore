@@ -1,5 +1,6 @@
 virtual/
 *.pyc 
+.env
 __pycache__
 start.sh
 migrations/

@@ -1,28 +1,28 @@
-import os 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class Config:
-    SECRET_KEY = os.environ.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://remmi:stephen@localhost/legalupdate"
-    UPLOADED_PHOTOS_DEST = "app/static/photos"
+    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
-    # email configurations
-    MAIL_SERVER = "smtp.googlemail.com"
+    MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-    MAIL_USERNAME= os.environ.get("MAIL_USERNAME")
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
     MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
+
 class ProdConfig(Config):
-    
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
-class TestConfig(Config):
-    
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://remmi:stephen@localhost/legalupdate_test"
 
 class DevConfig(Config):
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://remmi:stephen@localhost/legalupdate"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL_DEV")
+
     DEBUG = True
 
 

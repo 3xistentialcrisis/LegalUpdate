@@ -1,0 +1,10 @@
+Hello!
+
+A new status has been posted on your file.
+See more details of the email below
+
+Title: {{Status.title}}
+Post: {{Status.content|truncate(30)}}
+
+Regards,
+Team 3 Law Firm
