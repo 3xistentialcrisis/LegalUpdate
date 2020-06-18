@@ -30,16 +30,16 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('main.users')}}">Users</a>
+                        <a class="nav-link" href="{{url_for('main.users')}}">Clients</a>
                     </li>
                     <!-- Dropdown -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">Categories</a>
                         <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Sports')}}">Criminal</a>
-                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Tech')}}">Civil</a>
-                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Music')}}">Divorce</a>
+                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Criminal')}}">Criminal</a>
+                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Civil')}}">Civil</a>
+                            <a class="dropdown-item" href="{{url_for('main.category', cname = 'Divorce')}}">Divorce</a>
                             <a class="dropdown-item" href="{{url_for('main.category', cname = 'Other')}}">Other</a>
                         </div>
                     </li>
