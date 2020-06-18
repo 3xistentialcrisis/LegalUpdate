@@ -7,17 +7,17 @@
         <div class="col-lg-8">
             <div class="card promoting-card my-2 z-depth-6">
                 <div class="card-body d-flex flex-row">
-                    {%if client.profile_pic_path%}
+                    {%if lawyers.profile_pic_path%}
                         <img src="{{url_for('static', filename = user.profile_pic_path)}}" class="rounded-circle mr-3"
                             height="50px" width="50px" alt="avatar">
                     {%else%}
                         <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png" class="rounded-circle mr-3" width="50" height="50">
                     {%endif%}
                     <div>                        
-                        <p>{{client.username}}</p>                       
-                        <h4 class="card-title font-weight-bold mb-2">{{case.post_title}}</h4>
+                        <p>{{lawyers.username}}</p>
+                        <h4 class="card-title font-weight-bold mb-2">{{case.case_title}}</h4>
                         <p class="card-text"><i class="far fa-clock pr-2"></i>{{case.posted_at}}</p>
-                        <p class="card-text">{{case.post_content}}</p>
+                        <p class="card-text">{{case.case_content}}</p>
                     </div>
                 </div>
                 <div class="card-body">

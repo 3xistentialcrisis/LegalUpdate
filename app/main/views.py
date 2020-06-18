@@ -1,13 +1,11 @@
 from flask import (render_template, request, redirect, 
                    url_for, abort,flash)
 from . import main
-from .forms import CaseForm, CommentForm, UpdateProfile, CreateStatus
-from ..models import Client, Comment, Case, Lawyers, Status
+from .forms import CaseForm, UpdateProfile, CreateStatus
+from ..models import Case, Lawyers, Status
 from flask_login import login_required, current_user
-from .. import db, photos
+from .. import db
 from ..email import mail_message
-import secrets
-import os
 
 @main.route("/", methods = ["GET", "POST"])
 @login_required
@@ -38,86 +36,49 @@ def index():
                             case_form = case_form,
                             all_cases = all_cases)
 
- #Client Commenting on their File/Case
-@main.route("/post/<int:id>", methods = ["GET", "POST"])
-def case(id):
-    client = Client.query.filter_by(id = id).first()
-    case = Case.query.filter_by(case_id = id).first()
-    title = case.case_title
-    comments = Comment.query.filter_by(case_id = id).all()
-    comment_form = CommentForm()
-
-    if comment_form.validate_on_submit():
-        comment = comment_form.comment.data
-        comment_form.comment.data = ""
-        new_comment = Comment(comment = comment, 
-                            case_id = id,
-                            client_id = id)
-        new_comment.save_comment()
-        return redirect(url_for("main.post", id = case.case_id))
-
-    return render_template("post.html",
-                            case = case,
-                            title = title,
-                            comments = comments,
-                            comment_form = comment_form,
-                            client = client)
-
- #Client Profile
+ #Lawyer Profile
 @main.route("/profile/<int:id>/")
 def profile(id):
-    client = Client.query.filter_by(id = id).first()
-    cases = Case.query.filter_by(client_id = id).all()
-    title = client.full_name
+    lawyer = Lawyers.query.filter_by(id = id).first()
+    cases = Case.query.filter_by(case_id = id).all()
+    title = lawyer.full_name
 
     return render_template("profile/profile.html",
-                            client = client,
+                            lawyer = lawyer,
                             cases = cases,
                             title = title)
 
- #Client Updating their Profile 
+#Lawyer Updating their Profile
 @main.route("/profile/<int:id>/update", methods = ["GET", "POST"])
 def update(id):
-    client = Client.query.filter_by(id = id).first()
-    title = client.full_name
-    if client is None:
+    lawyer = Lawyers.query.filter_by(id = id).first()
+    title = Lawyers.full_name
+    if lawyer is None:
         abort(404)
 
     form = UpdateProfile()
     if form.validate_on_submit():
-        client.bio = form.bio.data
-        db.session.add(client)
+        lawyer.bio = form.bio.data
+        db.session.add(lawyer)
         db.session.commit()
         return redirect(url_for("main.profile",
                                 id = id))
 
     return render_template("profile/update.html",
                             form = form,
-                            client = client,
+                            lawyer = lawyer,
                             title = title)
 
- #Client Updating Profile Pic
-@main.route("/profile/<int:id>/update/pic", methods = ["POST"])
-def update_pic(id):
-    client = Client.query.filter_by(id = id).first()
-    if "photo" in request.files:
-        filename = photos.save(request.files["photo"])
-        path = f"photos/{filename}"
-        client.profile_pic_path = path
-        db.session.commit()
-    return redirect(url_for("main.update",
-                                id = id))
-
-#Searching Clients
-@main.route("/clients")
-def clients():
-    client = Client.query.all()
-    title = "Browse clients"
-    return render_template("clients.html", 
-                            client = client,
+#Searching Lawyers
+@main.route("/lawyers")
+def lawyers():
+    lawyer = Lawyers.query.all()
+    title = "Browse lawyers"
+    return render_template("lawyers.html",
+                            lawyer = lawyer,
                             title = title)
 
- #Searching Cases 
+#Searching Cases
 @main.route("/category/<cname>")
 def category(cname):
     cases = Case.query.filter_by(category = cname).all()
@@ -138,7 +99,7 @@ def about():
 @main.route('/new_post', methods=['POST','GET'])
 @login_required
 def new_status():
-    files = Files.query.all()
+    new_status = Status.query.all()
     form = CreateStatus()
 
     if form.validate_on_submit():
@@ -149,8 +110,8 @@ def new_status():
         new_status.save()
 
 
-        for client in Clients:
-            mail_message("A New Status Update has been made on your File", "email/new_status", client.email, new_status=new_status)
+        for lawyers in Lawyers:
+            mail_message("A New Status Update has been made on your File", "email/new_status", lawyers.email, new_status=new_status)
         return redirect(url_for('main.index'))
         flash('You Posted a new Status', danger)
 
@@ -167,26 +128,3 @@ def delete_status(status_id):
     db.session.commit()
     flash("You have Successfully deleted the status!")
     return redirect(url_for('lawyersdashboard.html'))
-  
-  # #Create New Client File
-# @main.route('/new_file', methods=['POST','GET'])
-# @login_required
-# def new_file():
-#     clients = Client.query.all()
-#     form = CreateFile()
-#     if form.validate_on_submit():
-#         client_name= form.client_name.data
-#         file_name = form.file_name.data
-#         file_type = form.file_type.data
-#         lawyer_email = form.lawyer_email.data
-
-#         new_file = CreateFile(client_name=client_name, file_name =file_name,
-#                               file_type = file_type, lawyer_email=lawyer_email)
-#         new_file.save()
-
-#         for client in Clients:
-#             return redirect(url_for('main.index'))
-#         flash('You have created a New File')
-#     return render_template('newfile.html', form = form)
-
-

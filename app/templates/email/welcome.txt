@@ -1,4 +1,4 @@
-Hello {{user.full_name}}
+Hello {{lawyers.full_name}}
 Welcome to Legal Update!
 
 
