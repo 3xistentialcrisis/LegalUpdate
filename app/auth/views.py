@@ -32,12 +32,12 @@ def login():
     if login_form.validate_on_submit():
         client = Client.query.filter_by(email = login_form.email.data).first()
         if client is not None and client.verify_password(login_form.password.data):
-            login_client(client, login_form.remember.data)
+            login_user(client, login_form.remember.data)
             return redirect(request.args.get("next") or url_for("main.index"))
 
         flash("Invalid Username or Password")
     
-    title = "Login to 60 Seconds"
+    title = "Login to Legal Update"
     return render_template("auth/login.html",
                             login_form = login_form,
                             title = title)

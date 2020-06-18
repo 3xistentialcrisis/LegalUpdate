@@ -5,7 +5,7 @@ from wtforms.validators import Required
 
 class CaseForm(FlaskForm):
     title = StringField('Case title',validators=[Required()])
-    post = TextAreaField('Your Case')
+    case = TextAreaField('Your Case')
     category = SelectField(u'Category', choices=[('Criminal', 'Criminal'), 
                                                 ('Civil', 'Civil'),
                                                 ('Divorce', 'Divorce'),

@@ -20,17 +20,17 @@ class Case(db.Model):
     client_id = db.Column(db.Integer,db.ForeignKey("clients.id"))
     comments = db.relationship("Comment",backref = "case_comments",lazy = "dynamic")
 
-    def save_post(self):
+    def save_case(self):
         db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_user_posts(cls,id):
+    def get_user_cases(cls,id):
         cases = Case.query.filter_by(client_id = id).all()
         return cases
 
    
-    def get_all_posts(cls):
+    def get_all_cases(cls):
         return Case.query.order_by(Case.posted_at.asc()).all()
 
 class Comment(db.Model):

@@ -7,7 +7,7 @@
         <div class="col-lg-8">
             <div class="card testimonial-card my-2">
                 <div class="card-up indigo lighten-1"></div>
-                {%if user.profile_pic_path%}
+                {%if client.profile_pic_path%}
                     <div class="avatar mx-auto white">
                         <img src="{{url_for('static', filename = user.profile_pic_path)}}" class="rounded-circle my-2" alt="Avatar" height="200" width="200">
                     </div>
@@ -17,13 +17,13 @@
                     </div>
                 {%endif%}
                 <div class="card-body">
-                    <h4 class="card-title">{{user.full_name}}</h4>
-                    <h6 class="card-title">{{user.username}}</h6>
+                    <h4 class="card-title">{{client.full_name}}</h4>
+                    <h6 class="card-title">{{client.username}}</h6>
                     <hr>
-                    {%if user.bio%}
-                        <p>{{user.bio}}</p>
+                    {%if client.bio%}
+                        <p>{{clinet.bio}}</p>
                     {%endif%}
-                    {%if user == current_user%}
+                    {%if client == current_client%}
                         <a href="{{url_for('main.update', id = current_user.id)}}" class="btn btn-dark">Update Profile<i class="fas fa-magic ml-1"></i></a>
                     {%endif%}
                 </div>

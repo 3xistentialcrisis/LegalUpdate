@@ -3,7 +3,7 @@ from flask import (render_template, request, redirect,
 from . import main
 from .forms import CaseForm, CommentForm, UpdateProfile
 from ..models import Client, Comment, Case
-from flask_login import login_required
+from flask_login import login_required, current_user
 from .. import db, photos
 
 @main.route("/", methods = ["GET", "POST"])
@@ -20,27 +20,27 @@ def index():
         case_title = case_form.title.data
         case_form.title.data = ""
         case_content = case_form.case.data
-        case_form.post.data = ""
+        case_form.case.data = ""
         case_category = case_form.category.data
         new_case = Case(case_title = case_title,
                         case_content = case_content,
                         category = case_category,
-                        client_id = current_user.id)
+                        )
 
-        new_post.save_post()
+        new_case.save_case()
         return redirect(url_for("main.index"))
     
     return render_template("index.html",
                             title = title,
-                            post_form = post_form,
+                            case_form = case_form,
                             all_cases = all_cases)
 
 @main.route("/post/<int:id>", methods = ["GET", "POST"])
-def post(id):
-    client = Clients.query.filter_by(id = id).first()
-    case = Case.query.filter_by(post_id = id).first()
-    title = post.post_title
-    comments = Comment.query.filter_by(post_id = id).all()
+def case(id):
+    client = Client.query.filter_by(id = id).first()
+    case = Case.query.filter_by(case_id = id).first()
+    title = case.case_title
+    comments = Comment.query.filter_by(case_id = id).all()
     comment_form = CommentForm()
 
     if comment_form.validate_on_submit():
@@ -62,7 +62,7 @@ def post(id):
 @main.route("/profile/<int:id>/")
 def profile(id):
     client = Client.query.filter_by(id = id).first()
-    cases = Post.query.filter_by(client_id = id).all()
+    cases = Case.query.filter_by(client_id = id).all()
     title = client.full_name
 
     return render_template("profile/profile.html",
@@ -73,13 +73,13 @@ def profile(id):
 @main.route("/profile/<int:id>/update", methods = ["GET", "POST"])
 def update(id):
     client = Client.query.filter_by(id = id).first()
-    title = user.full_name
-    if user is None:
+    title = client.full_name
+    if client is None:
         abort(404)
 
     form = UpdateProfile()
     if form.validate_on_submit():
-        user.bio = form.bio.data
+        client.bio = form.bio.data
         db.session.add(client)
         db.session.commit()
         return redirect(url_for("main.profile",
@@ -102,7 +102,7 @@ def update_pic(id):
                                 id = id))
 
 @main.route("/clients")
-def users():
+def clients():
     client = Client.query.all()
     title = "Browse clients"
     return render_template("clients.html", 
