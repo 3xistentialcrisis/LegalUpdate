@@ -1,0 +1,5 @@
+Hello {{user.full_name}}
+Welcome to Legal Update!
+
+
+From the Legal Update team

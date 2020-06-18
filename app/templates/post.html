@@ -1,0 +1,58 @@
+{%extends "base.html"%}
+{%block content%}
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-2"></div>
+        <div class="col-lg-8">
+            <div class="card promoting-card my-2 z-depth-6">
+                <div class="card-body d-flex flex-row">
+                    {%if client.profile_pic_path%}
+                        <img src="{{url_for('static', filename = user.profile_pic_path)}}" class="rounded-circle mr-3"
+                            height="50px" width="50px" alt="avatar">
+                    {%else%}
+                        <img src="https://cdn1.iconfinder.com/data/icons/user-pictures/100/unknown-512.png" class="rounded-circle mr-3" width="50" height="50">
+                    {%endif%}
+                    <div>                        
+                        <p>{{client.username}}</p>                       
+                        <h4 class="card-title font-weight-bold mb-2">{{case.post_title}}</h4>
+                        <p class="card-text"><i class="far fa-clock pr-2"></i>{{case.posted_at}}</p>
+                        <p class="card-text">{{case.post_content}}</p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p>{{case.content}}</p>
+
+                    {%if comments%}
+                        <h4 class="font-weight-bold">Comments</h4>
+                        {%for comment in comments%}
+                            <div class="card promoting-card comments d-flex flex-row z-depth-0">
+                                <div class="card-body d-flex flex-row">
+                                    <div>
+                                        <p class="card-text">{{comment.comment}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        {%endfor%}
+                    {%endif%}
+
+
+                    <div class="make-comment">
+                        <form class="form-group mt-4 d-flex flex-row" method="POST">
+                            {{comment_form.hidden_tag()}}
+                            {{comment_form.comment(class = "form-control", placeholder = "Write a comment")}}
+
+                            <div class="text-right">
+                                {{comment_form.submit(class = "btn btn-outline-dark btn-sm")}}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- Card -->
+        </div>
+        <div class="col-lg-2"></div>
+    </div>
+</div>
+
+{%endblock%}

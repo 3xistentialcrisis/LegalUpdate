@@ -1,5 +1,5 @@
 from flask_script import Manager, Server
-from app.models import Lawyers
+from app.models import Lawyers, Client, Case, Comment
 from flask_migrate import Migrate, MigrateCommand
 from app import create_app, db
 
@@ -15,7 +15,7 @@ manager.add_command('db', MigrateCommand)
 # Create Flask-script shell
 @manager.shell
 def make_shell_context():
-    return dict(app=app, db=db, Lawyers=Lawyers)
+    return dict(app=app, db=db, Lawyers=Lawyers, Client = Client, Case = Case, Comment = Comment, Status = Status)
 
 #Tests
 @manager.command

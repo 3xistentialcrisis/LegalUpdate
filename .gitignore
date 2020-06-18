@@ -1,6 +1,6 @@
+virtual/
+*.pyc 
 .env
-.vscode
-virtual
-*pyc
 __pycache__
 start.sh
+migrations/
