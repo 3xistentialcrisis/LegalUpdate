@@ -14,7 +14,7 @@ def register():
         lawyer = Lawyers(email=form.lawyer_email.data, username=form.lawyer_name.data, department=form.department.data, password=form.password.data)
         db.session.add(lawyer)
         db.session.commit()
-        mail_message("Welcome to Legal Update", "email/welcome", lawyer.lawyer_emailemail, lawyer=lawyer)
+        mail_message("Welcome to Legal Update", "email/welcome", lawyer.lawyer_email, lawyer=lawyer)
 
         return redirect(url_for('auth.lawyer_login'))
         title = "New Account"
