@@ -45,9 +45,16 @@
                     </li>
             {%endif%}
             </ul>
+
+<!--            Post Client File Status-->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{url_for('main.about')}}">About</a>
+                    <a class="nav-link" href="{{url_for('main.new_status')}}">Update File Status</a>
+                </li>
+<!--    Create Client File-->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{url_for('main.about')}}">Create Client File</a>
                 </li>
                 {%if current_user.is_authenticated%}
                 <li class="nav-item dropdown">

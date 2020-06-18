@@ -1,19 +1,72 @@
-{% extends 'base.html'%}
-{% import 'bootstrap/wtf.html' as wtf %}
+{%extends "base.html"%}
+{%import "bootstrap/wtf.html" as wtf%}
 
+{%block styles%}
+{{super()}}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
+{%endblock%}
 
-{% block content %}
+{%block content%}
 
-    <div  i="particles-js"  >
-        <div class=" row" >
-
-            <div class="col-md-2"></div>
-            <div class="col-md-8" id="postform">
-                <h2 class="text-center">Create A New Client Status Here!</h2>
-                {{wtf.quick_form(form)}}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+            <div class="accordion md-acccase_client= client_idordion mb-4" id="accordionEx" role="tablist" aria-multiselectable="true">
+                <!-- Accordion card -->
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header" role="tab" id="headingOne1">
+                        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
+                            aria-controls="collapseOne1">
+                            <h5 class="mb-0 text-center" style="color: #000;">
+                                <strong>Post Status</strong>
+                            </h5>
+                        </a>
+                    </div>
+                    <!-- Card body -->
+                    <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1"
+                        data-parent="#accordionEx">
+                        <div class="card-body">
+                            <form class="border-light p-2" method="POST">
+                                {{wtf.quick_form(status_form)}}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Accordion card -->
             </div>
-            <div class="col-md-2"></div>
         </div>
+        <div class="col-lg-3"></div>
     </div>
+</div>
+<div class="container">
+    {%if all_status%}
+        {%for status in all_status%}
+            <div class="row">
+                <div class="col-lg-2"></div>
+                <div class="col-lg-8">
+                    <div class="card promoting-card mb-3">
+                        <div class="card-body d-flex flex-row">
+                            <div>
 
-{% endblock%}
+                                <h4 class="card-title font-weight-bold mb-2">{{status.case_title}}</h4></a>
+                                <p class="card-text">{{status.client_name}}</p>
+                                <p class="card-text">{{status.title}}</p>
+                                <p class="card-text"><i class="far fa-clock pr-2"></i>{{status.date_created}}</p>
+<!--                                <span style="text-right" class="badge badge-dark">{{status.category}}</span>-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2"></div>
+            </div>
+        {%endfor%}
+    {%else%}
+        <div class="container">
+            <h4 class="text-center"><i class="far fa-grimace"></i> No Filed Cases Yet</h4>
+        </div>
+    {%endif%}
+</div>
+
+{%endblock%}

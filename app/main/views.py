@@ -13,6 +13,14 @@ def index():
     """
     View root page function that returns the index page and its data
     """
+    title = "About Legal Update"
+    return render_template("index.html",
+                           title=title)
+
+
+#About Page
+@main.route("/about")
+def about():
     all_cases = Case.query.all()
     case_form = CaseForm()
     title = "Legal Update | Leave a mark"
@@ -20,23 +28,27 @@ def index():
     if case_form.validate_on_submit():
         case_title = case_form.title.data
         case_form.title.data = ""
+        client_name = case_form.client_name.data
+        case_form.client_name.data = ""
         case_content = case_form.case.data
-        case_form.case.data = ""
+        case_form.case_content.data = ""
+        # case_form.case.data = ""
         case_category = case_form.category.data
-        new_case = Case(case_title = case_title,
-                        case_content = case_content,
-                        category = case_category,
+        new_case = Case(case_title=case_title,
+                        client_name=client_name,
+                        case_content=case_content,
+                        category=case_category,
                         )
 
         new_case.save_case()
         return redirect(url_for("main.index"))
-    
-    return render_template("index.html",
-                            title = title,
-                            case_form = case_form,
-                            all_cases = all_cases)
 
- #Lawyer Profile
+    return render_template("about.html",
+                           title=title,
+                           case_form=case_form,
+                           all_cases=all_cases)
+
+#Lawyer Profile
 @main.route("/profile/<int:id>/")
 def profile(id):
     lawyer = Lawyers.query.filter_by(id = id).first()
@@ -87,35 +99,38 @@ def category(cname):
     return render_template("category.html",
                             title = title,
                             cases = cases)
-#About Page
-@main.route("/about")
-def about():
-    title = "About Legal Update"
-    return render_template("about.html",
-                            title = title)
+
     
 
 #Lawyer Create New File Status
-@main.route('/new_post', methods=['POST','GET'])
+@main.route('/new_status', methods=['POST','GET'])
 @login_required
 def new_status():
-    new_status = Status.query.all()
-    form = CreateStatus()
+    all_status = Status.query.all()
+    status_form = CreateStatus()
+    title = "Legal Update | Leave a mark"
 
-    if form.validate_on_submit():
-        title = form.title.data
-        content = form.content.data
-        lawyer_email = form.lawyer_email.data
-        new_status = Status(title=title,content=content, lawyer_email=lawyer_email)
+    if status_form.validate_on_submit():
+        title = status_form.title.data
+        status_form.title.data = ""
+        client_name = status_form.client_name.data
+        status_form.client_name.data = ""
+        case_title = status_form.case_title.data
+        status_form.case_title.data = ""
+        content = status_form.content.data
+        status_form.content.data = ""
+        new_status = Status(title=title,
+                        client_name=client_name,
+                        case_title=case_title,
+                        content=content)
+
         new_status.save()
+        return redirect(url_for("main.index"))
 
-
-        for lawyers in Lawyers:
-            mail_message("A New Status Update has been made on your File", "email/new_status", lawyers.email, new_status=new_status)
-        return redirect(url_for('main.index'))
-        flash('You Posted a new Status', danger)
-
-    return render_template('newstatus.html', form = form)
+    return render_template("newstatus.html",
+                           title=title,
+                           status_form=status_form,
+                           all_status=all_status)
 
 #Lawyer Delete Status
 @main.route('/status/<status_id>/delete', methods = ['POST'])

@@ -7,8 +7,9 @@ from ..models import  Lawyers
 
 # Lawyers Create Client File 
 class CaseForm(FlaskForm):
-    full_name = StringField('Client Name',validators=[Required()])
+    full_name = StringField('Lawyer Name',validators=[Required()])
     title = StringField('Case title',validators=[Required()])
+    client_name = StringField('Client Name')
     case = TextAreaField('Your Case')
     category = SelectField(u'Category', choices=[('Criminal', 'Criminal'), 
                                                 ('Civil', 'Civil'),
@@ -16,22 +17,16 @@ class CaseForm(FlaskForm):
                                                 ('Other', 'Other') ])
     submit = SubmitField('Submit')
 
-#         def validate_email(self, lawyer_email):
-# #         if lawyer_email.data != current_user.email:
-# #             if Lawyers.query.filter_by(lawyer_email=lawyer_email.data).first():
-# #                 raise ValidationError("You do not have permission to create a Client File!")
-    
+
 #Lawyers Create File Status
 class CreateStatus(FlaskForm):
     title = StringField('Enter status title',validators=[Required()])
+    client_name = StringField('Enter status title',validators=[Required()])
+    case_title = StringField('Enter status title',validators=[Required()])
     content = TextAreaField('Status Content',validators=[Required()])
     # lawyer_email = StringField('Enter the File Type', validators=[Required(), Email()])
     submit = SubmitField('Post')
 
-    # def validate_email(self, lawyer_email):
-    #     if lawyer_email.data != current_user.email:
-    #         if Lawyers.query.filter_by(lawyer_email=lawyer_email.data).first():
-    #             raise ValidationError("You do not have permission to create a File Status!")
   
 #Clients Comment on Status
 class CommentForm(FlaskForm):

@@ -13,13 +13,13 @@
                             class="rounded-circle my-2" height="200" width="200">
                     </div>
                 <div class="card-body">
-                    <h4 class="card-title">{{lawyers.full_name}}</h4>
-                    <h6 class="card-title">{{lawyers.username}}</h6>
+                    <h4 class="card-title">{{lawyer.full_name}}</h4>
+                    <h6 class="card-title">{{lawyer.username}}</h6>
                     <form class="form-group mt-4 flex-row" method="POST">
                         {{wtf.quick_form(form)}}
                     </form>
                     <h6>Update Profile Picture</h6>
-                    <form action="{{url_for('main.update_pic', id = lawyers.id)}}" method="POST" class="input-group" enctype="multipart/form-data">
+                    <form action="{{url_for('main.update_pic', id = lawyer.id)}}" method="POST" class="input-group" enctype="multipart/form-data">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <button type="submit" class="input-group-text" id="inputGroupFileAddon01">Upload</button>

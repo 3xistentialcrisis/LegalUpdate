@@ -1,70 +1,108 @@
 {%extends "base.html"%}
-{%import "bootstrap/wtf.html" as wtf%}
-
 {%block styles%}
 {{super()}}
-<link rel="stylesheet" href="{{url_for('static', filename = 'css/index.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/about.css')}}">
 {%endblock%}
-
 {%block content%}
 
 <div class="container">
-    <div class="row">
-        <div class="col-lg-3"></div>
-        <div class="col-lg-6">
-            <div class="accordion md-acccase_client= client_idordion mb-4" id="accordionEx" role="tablist" aria-multiselectable="true">
-                <!-- Accordion card -->
-                <div class="card">
-                    <!-- Card header -->
-                    <div class="card-header" role="tab" id="headingOne1">
-                        <a data-toggle="collapse" data-parent="#accordionEx" href="#collapseOne1" aria-expanded="true"
-                            aria-controls="collapseOne1">
-                            <h5 class="mb-0 text-center" style="color: #000;">
-                                <strong>Post Case</strong>
-                            </h5>
-                        </a>
-                    </div>
-                    <!-- Card body -->
-                    <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1"
-                        data-parent="#accordionEx">
-                        <div class="card-body">
-                            <form class="border-light p-2" method="POST">
-                                {{wtf.quick_form(case_form)}}
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- Accordion card -->
-            </div>
+
+        <h1 class="text-center" style="font-family: 'Major Mono Display', monospace; font-size: 70px;">Legal Update Lawfirm</h1>
+        <div class="text-center">
+                <p><i class="fa fa-balance-scale fa-5x" ></i></p>
+            </a>
         </div>
-        <div class="col-lg-3"></div>
+        <div class="content">
+            <h3>Legal Update</h3>
+            <p class="my-2">
+
+            </p>
+            <p>
+                The legal_update was created whereby clients can view their files cases which have been posted by the lawyers.For this to be done the client and the lawyer need to have accounts.The lawyer will upload the files and the client will be getting the update immediately.Clients have the chance to make comments about the files which are being worked on.
+            </p>
+            <h3 class="my-4">Mission</h3>
+            <p>
+
+            </p>
+
+            <h3 class="my-4">Policies</h3>
+            <p>
+
+                    We endevour to use technology to provide more legal services to our clients
+
+            </p>
+            <h3 class="my-5">Cases we deal with</h3>
+            <p>
+                <span class="my-1">Here are some of the cases we focus on</span>
+                <ul>
+                    <li>
+                        1.Criminal Cases
+                        </li>
+                    <li>
+                        2.Civil Cases
+                    </li>
+                    <li>
+                        3.Divorce Cases
+                    </li>
+
+                </ul>
+            </p>
+            <h3 class="my-7">Testimonials</h3>
+            <p>
+                <span class="my-1">Here are some our former clients and their sentiments on our services</span>
+                <ul>
+                    <li></li>
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+            </p>
+            <h3 class="my-8">Contact Us</h3>
+            <p>
+                <span class="my-1">You can reach us through the following contact details</span>
+                <ul>
+                    <li></li>
+                    <li>
+
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+            </p>
+            <div class="my-cards">
+              <div class="card-columns">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="card shadow" style="width: 19rem;">
+                      <div class="inner">
+                        <img
+                          class="card-img-top"
+                          src="static/photos/asana.jpg"
+                          alt="card image cap"
+                        />
+                      </div>
+
+                      <div class="card-body text-center">
+                        <h5 class="card-title">Lawyers Portal</h5>
+                        <p class="card-text">Client & File Management</p>
+                        <a href="{{url_for('auth.login')}}" class="btn btn-primary">Sign In</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     </div>
 </div>
-<div class="container">
-    {%if all_cases%}
-        {%for case in all_cases%}
-            <div class="row">
-                <div class="col-lg-2"></div>
-                <div class="col-lg-8">
-                    <div class="card promoting-card mb-3">
-                        <div class="card-body d-flex flex-row">
-                            <div>
-
-                                <h4 class="card-title font-weight-bold mb-2">{{case.case_title}}</h4></a>
-                                <p class="card-text"><i class="far fa-clock pr-2"></i>{{case.posted_at}}</p>
-                                <span style="text-right" class="badge badge-dark">{{case.category}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-2"></div>
-            </div>
-        {%endfor%}
-    {%else%}
-        <div class="container">
-            <h4 class="text-center"><i class="far fa-grimace"></i> No Filed Cases Yet</h4>
-        </div>
-    {%endif%}
-</div>
-
 {%endblock%}
+
+
