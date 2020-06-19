@@ -20,10 +20,10 @@ class CaseForm(FlaskForm):
 
 #Lawyers Create File Status
 class CreateStatus(FlaskForm):
-    title = StringField('Enter status title',validators=[Required()])
-    client_name = StringField('Enter status title',validators=[Required()])
-    case_title = StringField('Enter status title',validators=[Required()])
-    content = TextAreaField('Status Content',validators=[Required()])
+    title = StringField('Enter Status title',validators=[Required()])
+    client_name = StringField('Enter Client Name',validators=[Required()])
+    case_title = StringField('Enter Case Title',validators=[Required()])
+    content = TextAreaField('Enter Status Content',validators=[Required()])
     # lawyer_email = StringField('Enter the File Type', validators=[Required(), Email()])
     submit = SubmitField('Post')
 

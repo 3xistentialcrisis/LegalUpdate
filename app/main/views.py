@@ -142,4 +142,4 @@ def delete_status(status_id):
     status.delete()
     db.session.commit()
     flash("You have Successfully deleted the status!")
-    return redirect(url_for('lawyersdashboard.html'))
+    return redirect(url_for('newstatus.html'))
