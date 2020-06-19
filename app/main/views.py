@@ -19,7 +19,7 @@ def index():
 
 
 #About Page
-@main.route("/about")
+@main.route("/about", methods=['POST','GET'])
 def about():
     all_cases = Case.query.all()
     case_form = CaseForm()

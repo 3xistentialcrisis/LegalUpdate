@@ -11,6 +11,7 @@ class CaseForm(FlaskForm):
     title = StringField('Case title',validators=[Required()])
     client_name = StringField('Client Name')
     case = TextAreaField('Your Case')
+    case_content = TextAreaField('Case Details')
     category = SelectField(u'Category', choices=[('Criminal', 'Criminal'), 
                                                 ('Civil', 'Civil'),
                                                 ('Divorce', 'Divorce'),
