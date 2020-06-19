@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 from flask_bootstrap import Bootstrap
 from config import config_options
+# from flask_session import Session
 
 db = SQLAlchemy()
 login_manager = LoginManager()
@@ -18,12 +19,14 @@ def create_app(config_name):
 
     # Creating the app configurations
     app.config.from_object(config_options[config_name])
+    app.config['SECRET_KEY'] = 'paper'
 
     # Initializing flask extensions
     db.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
     bootstrap.init_app(app)
+    # session(app)
 
     # Registering the main app Blueprint
     from .main import main as main_blueprint
