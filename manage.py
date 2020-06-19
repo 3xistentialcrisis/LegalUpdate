@@ -1,5 +1,4 @@
 from flask_script import Manager, Server
-from flask_session import Session
 from app.models import Lawyers, Case, Status
 from flask_migrate import Migrate, MigrateCommand
 from app import create_app, db
